@@ -196,4 +196,4 @@ void insertionsort(Item *v, int l, int r)
  
 ```
 
-<p>OBS:</p>
+<p>OBS: O algoritmo de ordenação Insertion Sort é um algoritmo estável</p>
