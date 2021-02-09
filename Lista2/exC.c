@@ -2,10 +2,6 @@
 #include <stdlib.h>
 
 void merge(int *V, int l, int m, int r){
-    for(int i = 0; i < r; i++){
-        printf("%d ", V[i]);
-    }
-    printf("\n");
     int *R = malloc(sizeof(int) * (r-l+1));
     int i=l, j=m+1, k=0;
 
@@ -37,24 +33,30 @@ void mergesort(int *V, int l, int r){
 }
 
 int main(){
-    int i = 0, vetor[100000];
 
-    while(scanf("%d", &vetor[i]) != EOF){
-        printf("%d ", vetor[i]);
-        i++;
-    }
-    printf("\n");
+    int numero, *vetor, contador = 0;
+    int tamanho = 20;
 
-    mergesort(vetor, 0, i-1);
+    vetor = malloc(sizeof(int) * tamanho);
 
-    for(int x = 0; x < i; x++)
-    {
-        if(x == i - 1){
-            printf("%d\n",vetor[i]);
-        } else{
-            printf("%d ",vetor[i]); 
+    while(scanf("%d", (vetor+contador)) != EOF){
+        contador++;
+        if(contador == tamanho){
+            tamanho += 50;
+            vetor = realloc(vetor, sizeof(int) * tamanho);
         }
     }
+
+    mergesort(vetor, 0, contador-1);
+
+    for(int i = 0; i < contador; i++){
+        if(i == contador-1){
+            printf("%d\n", *(vetor + i));
+        }else{
+            printf("%d ", *(vetor + i));
+        }
+    }
+
 
     return 0;
 }
