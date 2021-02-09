@@ -197,3 +197,40 @@ void insertionsort(Item *v, int l, int r)
 ```
 
 <p>OBS: O algoritmo de ordenação Insertion Sort é um algoritmo estável</p>
+
+<h3>Merge Sort</h3>
+
+<p>O Merge Sort tem uma vantagem de possuir uma complexidade cnstante de O(nlogn), porém diferentemente dos algoritmos de ordenação elementares vistos antes, o merge é "burro" pois depende de uma outra função para ordenar os elementos do vetor, ou seja, ele não consegue ordenar vetores de tamanho maior que 1, visto que 1 o merge sort sabe que o vetor já está ordenado.</p>
+
+```
+void merge (Item *v, int l, int r1, int r2){
+    Item *v2 = malloc(sizeof(Item)*(r2 - l + 1));
+    int k = 0;
+    int i = l;
+    int j = r1 + 1;
+    while(i <= r1 && j <= r2){
+        if(less(v[i], v[j]))
+            v2[k++] = v[i++];
+        else
+            v2[k++] = v[j++];
+    }
+    while(i <= r1)
+        v2[k++] = v[i++];
+    while(i <= r2)
+        v2[k++] = v[j++];
+    k = 0;
+    for(i = l; i <= r2; i++)
+        v[i] = v2[k++];
+    free(v2);
+}
+```
+
+```
+void mergesort(Item *v, int l, int r){
+    if (l >= r) return;
+    int meio = (r+l)/2;
+    mergesort(v, l, meio);
+    mergesort(v, meio+1, r);
+    mergeAB(v, l, meio, r);
+}
+```
