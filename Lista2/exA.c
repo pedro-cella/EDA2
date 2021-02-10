@@ -1,64 +1,64 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void merge(int *V, int l, int m, int r){
-    int *R = malloc(sizeof(int) * (r-l+1));
-    int i=l, j=m+1, k=0;
+int *intercala(int *a, int la, int ra, int *b, int lb, int rb)
+{
+    int ta = (ra - la + 1);
+    int tb = (rb - lb + 1);
 
-    while(i<=m && j<=r){
-        if(V[i] <= V[j])
-            R[k++]=V[i++];
-        else
-            R[k++]=V[j++];
-    }
+    int *c = malloc(sizeof(int) * (ta + tb));
+    int lc = 0;
+    int rc = (ta + tb - 1);
+    int ia = la;
+    int ib = lb;
+    int ic = 0;
 
-    while(i<=m)
-        R[k++]=V[i++];
-    while(j<=r)
-        R[k++]=V[j++];
-
-    k=0;
-    for(i=l;i<=r;i++)
-        V[i]=R[k++];
-
-    free(R);
-}
-
-int main(){
-    int n, i, *ptr, sum = 0;
-
-    scanf("%d", &n);
-
-    // dynamic memory allocation using malloc()
-    ptr = (int *) malloc(n*sizeof(int));
-
-    if(ptr == NULL) // if empty array
-    {
-        printf("\n\nError! Memory not allocated\n");
-        return 0;   // end of program
-    }
-
-    for(i = 0; i < n; i++)
-    {
-        // storing elements at contiguous memory locations
-        scanf("%d", ptr+i);    
-        sum = sum + *(ptr + i);
-    }
-
-    mergesort(ptr, 0, n-1);
-
-    // printing the array elements using pointer to the location
-    // printf("\n\nThe elements of the array are: ");
-    for(i = 0; i < n; i++)
-    {
-        if(i == n - 1){
-            printf("%d\n",ptr[i]);   // ptr[i] is same as *(ptr + i)
-        } else{
-            printf("%d ",ptr[i]); 
+    while(ia <= ra && ib <= rb){
+        if(a[ia] <= b[ib]){
+            c[ic] = a[ia];
+            ic++;
+            ia++;
+        }
+        else{
+            c[ic] = b[ib];
+            ic++;
+            ib++;
         }
     }
 
-    free(ptr);
+    while(ia <= ra)
+        c[ic++] = a[ia++];
+    while(ib <= rb)
+        c[ic++] = b[ib++];
+
+    return c;
+}
+
+int main(){
+
+    int *vetor, Si, somador=0, *vetor_resultante;
+
+    for(int i = 0; i < 8; i++){
+        scanf("%d", &Si);
+        vetor = malloc(sizeof(int) * Si);
+
+        for(int j = 0; j < Si; j++){
+            scanf("%d", &vetor[j]);
+        }
+
+        vetor_resultante = intercala(vetor, 0, Si-1, vetor_resultante, 0, somador-1);
+        somador+=Si;
+    }
+
+    for(int i = 0; i < somador; i++){
+        if(i == somador - 1){
+            printf("%d\n", vetor_resultante[i]);
+        }else{
+            printf("%d ", vetor_resultante[i]);
+        }
+    }
+
+    free(vetor);
 
     return 0;
 }
