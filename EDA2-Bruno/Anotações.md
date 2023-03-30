@@ -20,9 +20,11 @@ Se não: Ordenação Extera;
 <h3>Convenções</h3>
 
 `typedef int Item;`
+
 <p>O Item representa elementos de vários tipos</p>
 
 `#define key(A)`
+
 <p>A key retorna qual a chave que "eu" precisarei ordenar. Ex:</p>
 
 `struct {int chave, chave home[100]};`
@@ -30,12 +32,15 @@ Se não: Ordenação Extera;
 `key(A) retorna (A.chave)`
 
 `#define less(A,B) (key(A) < key(B))`
+
 <p>Retorna o menor valor</p>
 
 `#define exch(A, B) { Item t = A; A = B; B = t; }`
+
 <p>Trocará o elemento que está no item A para o que está no item B</p>
 
 `#define cmpexch(A, B) { if(less(B, A)) exch(A, B); }`
+
 <p>Compara duas chaves e troca</p>
 
 <h3>Algoritmos de Ordenação Estáveis</h3>
@@ -81,6 +86,7 @@ ou
 <p>Vamos implementar!</p>
 
 `void bubblesort(Item *v, int l, int r)`
+
 <p>Nossos parâmetros são: um conjunto de itens armazenados em um vetor, e o intervalo que esse vetor está armazenado, sendo o item mais a esquerda l, e o item mais a direita r, sempre considerando que é um intervalo fechado de elementos.</p>
 
 ```
@@ -106,10 +112,9 @@ void bubblesort(Item *v, int l, int r)
 }
 ```
 
-<p>Dentre os algoritmo de ordenação o bubble sort é o que se coporta pior pelo fato de mesmo tendo umvetor já ordenado ele ainda irá fazer a iteração para saber se os valores já estão ou não ordenados.</p>
+<p>Dentre os algoritmo de ordenação o bubble sort é o que se comporta pior pelo fato de mesmo tendo um vetor já ordenado ele ainda irá fazer a iteração para saber se os valores já estão ou não ordenados.</p>
 
 <p>OBS: O Bubble Sort é um algoritmo de ordenação estável, ou seja, ele mantém a ordem relativa dos elementos da mesma maneira que eles aparecem no vetor.</p>
-
 
 <h3>Selection Sort</h3>
 
@@ -132,16 +137,15 @@ void selectionsort(Item *v, int l, int r)
 
 ```
 
-
 <p>Implementação Iterativa</p>
 
 ```
 void selectionsort(Item *v, int l, int r)
 {
-    
+
     for(int i = l; i < r; i++)
         int min = i;
-        for(int j = i + 1; j <= r; j++) 
+        for(int j = i + 1; j <= r; j++)
             if(v[j] < v[min]){
                 min = j;
             }
@@ -163,37 +167,37 @@ time ./meuprograma
 
  <p>Maneira Simples "Slow"</p>
 
- ```
+```
 void insertionsort(Item *v, int l, int r)
 {
-    for(int i = l + 1; i <= r; i++)
-        for(j = i; j > l; j--)
-            compexch(v[j], v[j-1])
+   for(int i = l + 1; i <= r; i++)
+       for(j = i; j > l; j--)
+           compexch(v[j], v[j-1])
 }
 
- ```
+```
 
 <p>Maneira mais Eficiente</p>
 
- ```
+```
 void insertionsort(Item *v, int l, int r)
 {
-    for(int i = r; i > l; i--)
-        cmpexch(v[i - 1], v[i]);
+   for(int i = r; i > l; i--)
+       cmpexch(v[i - 1], v[i]);
 
-    for(int i = l + 2; i <= r; i++>)
-    {
-        int j = i;
-        Item temp = v[j];
-        while(less(temp, v[j-1]))
-        {
-            v[j] = v[j-1];
-            j--;
-        }
-        v[j] = temp;
-    }        
+   for(int i = l + 2; i <= r; i++>)
+   {
+       int j = i;
+       Item temp = v[j];
+       while(less(temp, v[j-1]))
+       {
+           v[j] = v[j-1];
+           j--;
+       }
+       v[j] = temp;
+   }
 }
- 
+
 ```
 
 <p>OBS: O algoritmo de ordenação Insertion Sort é um algoritmo estável</p>
